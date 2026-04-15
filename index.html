@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TETRAH – Holorun</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,42 +12,114 @@
   <!-- Canvas for particle animation -->
   <canvas id="bg"></canvas>
 
-  <!-- Nav -->
-  <nav class="navbar">
-    <span class="logo">HOLORUN</span>
-  </nav>
+  <!-- Sticky Navbar -->
+  <header class="sticky-nav">
+    <img src="imgs/logo (1).png" alt="Holorun" class="nav-icon" id="navToggle">
+    <nav class="nav-links" id="navLinks">
+      <a href="#">Home</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Pitch Deck</a>
+    </nav>
+  </header>
 
-  <!-- Hero -->
-  <main class="hero">
-    <div class="hero-content">
-      <p class="eyebrow">Introducing</p>
-      <h1 class="title">TETRAH</h1>
-      <p class="sub">Technology · Three Dimension · Artificial Intelligence · Hologram</p>
-      <p class="desc">
-        A real-time, mid-air, volumetric display — no screen, no headset.<br>
-        Pure light in space.
-      </p>
-      <div class="cta-row">
-        <a href="https://holorun.github.io/Holosite/" class="btn-primary" target="_blank">See the Project</a>
-        <a href="mailto:info@holorun.net" class="btn-ghost">Get in Touch</a>
+  <!-- Logo Banner with Nav overlaid -->
+  <div class="logo-banner">
+    <nav class="navbar"></nav>
+    <img src="imgs/Holorun (new).png" alt="Holorun" class="logo-img">
+  </div>
+
+  <!-- Welcome Section -->
+  <section class="welcome scroll-shrink">
+    <h2 class="welcome-title" id="welcomeToggle">Welcome to Holorun <span class="toggle-arrow">▾</span></h2>
+    <div class="welcome-body" id="welcomeBody">
+    <p class="welcome-text">
+      <strong>Holorun</strong> is a computer hardware and software startup founded in Costa Mesa, CA, currently based at <a href="https://innovation.uci.edu/the-cove/" target="_blank">UCI Beall Applied Innovation @COVE</a>. We're here to transform the way we interact with technology by making useful tools we can use. Immersive technology has made remarkable strides, yet no solution has truly brought holographic displays into our everyday use. We aim to change that.
+    </p>
+    </div>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section scroll-shrink">
+
+    <!-- Hardware Accordion -->
+    <div class="accordion-item">
+      <div class="accordion-header" data-target="hardware-body">
+        <span>Hardware</span>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="accordion-body" id="hardware-body">
+
+        <!-- TETRAH Sub-section -->
+        <div class="accordion-item sub">
+          <div class="accordion-header" data-target="tetrah-body">
+            <span>TETRAH Project</span>
+            <span class="acc-arrow">▾</span>
+          </div>
+          <div class="accordion-body" id="tetrah-body">
+            <p class="tetrah-text tetrah-text--single">Meet <strong>TETRAH</strong> (Technology, Three Dimension, Artificial Intelligence, Hologram)</p>
+            <p class="tetrah-text">Our first hardware prototype, capable of:</p>
+            <p class="tetrah-text">- Providing an AI assistant to allow users to connect and interact with data in 3 dimensions.</p>
+            <p class="tetrah-text">- Displaying both 2D &amp; 3D graphics and our own custom 3D web browser app.</p>
+            <p class="tetrah-text">- Connecting to your smart phone to share and interact with data.</p>
+            <div class="tetrah-imgs">
+              <div class="tetrah-img-item">
+                <img src="imgs/tetrah/Side.png" alt="3D model of TETRAH side" class="tetrah-img">
+                <p class="tetrah-caption">3D model of the finished TETRAH</p>
+              </div>
+              <div class="tetrah-img-item">
+                <video class="tetrah-img" id="tetrahVideo" playsinline muted controls preload="metadata" loop src="imgs/slide-video/TETRAH/TETRAH_weather_display.mp4"></video>
+                <p class="tetrah-caption">TETRAH weather display demo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
-    <div class="badge-wrap">
-      <div class="badge">
-        <span class="badge-label">Status</span>
-        <span class="badge-value">In Development</span>
+    <!-- Software Accordion -->
+    <div class="accordion-item">
+      <div class="accordion-header" data-target="software-body">
+        <span>Software</span>
+        <span class="acc-arrow">▾</span>
       </div>
-      <div class="badge">
-        <span class="badge-label">Location</span>
-        <span class="badge-value">Costa Mesa, CA</span>
-      </div>
-      <div class="badge">
-        <span class="badge-label">Stage</span>
-        <span class="badge-value">Hardware Prototype</span>
+      <div class="accordion-body" id="software-body">
+        <p class="tetrah-text">Coming soon.</p>
       </div>
     </div>
-  </main>
+
+  </section>
+
+  <!-- Technology Section -->
+  <section class="technology scroll-shrink">
+    <h2 class="tech-title">Technology</h2>
+    <p class="tech-text">
+      Our holographic display builds on the same principles as projector technology. But instead of projecting onto a screen or wall, we project onto microscopic particles suspended in mid-air. These particles are held in place using "optical tweezers" and other optical techniques. Using light to suspend them, draw them into real 3D and 2D shapes, and illuminate them to reveal objects and scenes.
+    </p>
+    <div class="tech-img-wrap">
+      <video class="tech-img" id="techVideo" playsinline muted controls preload="metadata" loop src="imgs/slide-video/June-Tryitall/karate.mp4"></video>
+    </div>
+  </section>
+
+  <!-- Opportunity Section -->
+  <section class="opportunity scroll-shrink">
+    <h2 class="opp-title">Opportunity</h2>
+    <p class="opp-text">The global AR/VR market is projected to reach an estimated US $58.1 billion in total market volume by 2028. By leveraging this growth, holographic technology has the potential to offer an alternative that can create actual 3D images and capture a $10 million market share within 5 years.</p>
+    <p class="opp-text">It has the potential to open new opportunities in countless fields, including:</p>
+    <ul class="opp-list">
+      <li>Science</li>
+      <li>Technology</li>
+      <li>Engineering</li>
+      <li>Mathematics</li>
+      <li>Education</li>
+      <li>Healthcare</li>
+      <li>Entertainment</li>
+      <li>Communication</li>
+      <li>Business</li>
+      <li>Art</li>
+    </ul>
+    <p class="opp-text">By investing in <strong>Holorun</strong>, you're funding groundbreaking research with the ability to reinvent how we interact with the digital world.</p>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">

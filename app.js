@@ -1,3 +1,100 @@
+// ===== SCROLL VIDEO AUTOPLAY =====
+['techVideo', 'tetrahVideo'].forEach(id => {
+  const vid = document.getElementById(id);
+  if (vid) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          vid.play();
+        } else {
+          vid.pause();
+        }
+      });
+    }, { threshold: 0.4 });
+    observer.observe(vid);
+  }
+});
+
+// ===== LOGO BANNER SHRINK =====
+const logoBanner = document.querySelector('.logo-banner');
+
+if (logoBanner) {
+  const minHeight = 80;
+  let fullHeight;
+
+  function measureBanner() {
+    logoBanner.style.height = '';
+    fullHeight = logoBanner.offsetHeight;
+    logoBanner.style.height = Math.max(minHeight, fullHeight - window.scrollY) + 'px';
+  }
+
+  window.addEventListener('load', measureBanner);
+  window.addEventListener('resize', measureBanner);
+
+  window.addEventListener('scroll', () => {
+    if (!fullHeight) return;
+    const newHeight = Math.max(minHeight, fullHeight - window.scrollY * 0.4);
+    logoBanner.style.height = newHeight + 'px';
+  });
+}
+
+
+
+// ===== ACCORDION =====
+document.querySelectorAll('.accordion-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const body = document.getElementById(header.dataset.target);
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open');
+    header.classList.toggle('open');
+  });
+});
+
+// ===== WELCOME COLLAPSIBLE =====
+const welcomeToggle = document.getElementById('welcomeToggle');
+const welcomeBody = document.getElementById('welcomeBody');
+if (welcomeToggle && welcomeBody) {
+  welcomeToggle.addEventListener('click', () => {
+    welcomeToggle.classList.toggle('collapsed');
+    welcomeBody.classList.toggle('collapsed');
+  });
+}
+
+// ===== MOBILE NAV TOGGLE =====
+const navToggle = document.getElementById('navToggle');
+const navLinks = document.getElementById('navLinks');
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click', () => {
+    navLinks.classList.toggle('open');
+  });
+  // close when a link is tapped
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+}
+
+// ===== STICKY NAV =====
+const stickyNav = document.querySelector('.sticky-nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    stickyNav.classList.add('scrolled');
+  } else {
+    stickyNav.classList.remove('scrolled');
+  }
+}, { passive: true });
+
+// ===== SECTION REVEAL ON SCROLL =====
+const revealSections = document.querySelectorAll('.scroll-shrink');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in-view');
+    }
+  });
+}, { threshold: 0.1 });
+
+revealSections.forEach(s => revealObserver.observe(s));
+
 // ===== PARTICLE CANVAS =====
 const canvas = document.getElementById('bg');
 const ctx = canvas.getContext('2d');
