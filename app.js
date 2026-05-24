@@ -40,6 +40,17 @@ if (logoBanner) {
 
 
 
+// ===== TABS =====
+const tabBtns = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+
+tabPanels.forEach(p => p.classList.remove('active'));
+document.getElementById('tab-hardware').classList.add('active');
+
+tabBtns.forEach(btn => {
+  btn.addEventListener('click', () => syncNavTabs(btn.dataset.tab));
+});
+
 // ===== ACCORDION =====
 document.querySelectorAll('.accordion-header').forEach(header => {
   header.addEventListener('click', () => {
@@ -49,16 +60,6 @@ document.querySelectorAll('.accordion-header').forEach(header => {
     header.classList.toggle('open');
   });
 });
-
-// ===== WELCOME COLLAPSIBLE =====
-const welcomeToggle = document.getElementById('welcomeToggle');
-const welcomeBody = document.getElementById('welcomeBody');
-if (welcomeToggle && welcomeBody) {
-  welcomeToggle.addEventListener('click', () => {
-    welcomeToggle.classList.toggle('collapsed');
-    welcomeBody.classList.toggle('collapsed');
-  });
-}
 
 // ===== MOBILE NAV TOGGLE =====
 const navToggle = document.getElementById('navToggle');
@@ -75,11 +76,55 @@ if (navToggle && navLinks) {
 
 // ===== STICKY NAV =====
 const stickyNav = document.querySelector('.sticky-nav');
+
+function setNavHeight() {
+  document.documentElement.style.setProperty('--nav-height', stickyNav.offsetHeight + 'px');
+}
+setNavHeight();
+window.addEventListener('resize', setNavHeight);
+
 window.addEventListener('scroll', () => {
   if (window.scrollY > 60) {
     stickyNav.classList.add('scrolled');
+    setNavHeight();
   } else {
     stickyNav.classList.remove('scrolled');
+    setNavHeight();
+  }
+}, { passive: true });
+
+// ===== NAV TAB BAR (appears in header on scroll) =====
+const tabBar = document.querySelector('.tab-bar');
+const navTabBar = document.getElementById('navTabBar');
+const navTabBtns = document.querySelectorAll('.nav-tab-btn');
+
+function getTabBarScrollTop() {
+  let el = tabBar, top = 0;
+  while (el) { top += el.offsetTop; el = el.offsetParent; }
+  return top;
+}
+
+function syncNavTabs(activeTab) {
+  navTabBtns.forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === activeTab);
+  });
+  tabBtns.forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === activeTab);
+  });
+  tabPanels.forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + activeTab).classList.add('active');
+}
+
+navTabBtns.forEach(btn => {
+  btn.addEventListener('click', () => syncNavTabs(btn.dataset.tab));
+});
+
+window.addEventListener('scroll', () => {
+  const threshold = getTabBarScrollTop() + tabBar.offsetHeight;
+  if (window.scrollY + stickyNav.offsetHeight >= threshold) {
+    stickyNav.classList.add('tabs-visible');
+  } else {
+    stickyNav.classList.remove('tabs-visible');
   }
 }, { passive: true });
 
