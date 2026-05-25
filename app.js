@@ -61,18 +61,35 @@ document.querySelectorAll('.accordion-header').forEach(header => {
   });
 });
 
-// ===== MOBILE NAV TOGGLE =====
+// ===== DRAWER =====
 const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
-if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
-  // close when a link is tapped
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
+const drawer = document.getElementById('drawer');
+const drawerOverlay = document.getElementById('drawerOverlay');
+const drawerClose = document.getElementById('drawerClose');
+const drawerContactLink = document.getElementById('drawerContactLink');
+
+function openDrawer() {
+  drawer.classList.add('open');
+  drawerOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
 }
+
+function closeDrawer() {
+  drawer.classList.remove('open');
+  drawerOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+navToggle.addEventListener('click', openDrawer);
+drawerClose.addEventListener('click', closeDrawer);
+drawerOverlay.addEventListener('click', closeDrawer);
+
+drawerContactLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  closeDrawer();
+  syncNavTabs('contact');
+  document.querySelector('.tabs-section').scrollIntoView({ behavior: 'smooth' });
+});
 
 // ===== STICKY NAV =====
 const stickyNav = document.querySelector('.sticky-nav');

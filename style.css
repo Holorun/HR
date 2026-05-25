@@ -34,6 +34,101 @@ html {
 
 #bg { display: none; }
 
+/* ===== DRAWER ===== */
+.drawer-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.drawer-overlay.open {
+  display: block;
+  opacity: 1;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 280px;
+  background: #06252b;
+  border-right: 1px solid rgba(0,200,180,0.15);
+  z-index: 300;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 40px;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(0,200,180,0.1);
+}
+
+.drawer-logo {
+  height: 32px;
+  width: auto;
+}
+
+.drawer-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: color 0.2s;
+}
+
+.drawer-close:hover {
+  color: var(--white);
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 32px 24px;
+  gap: 8px;
+}
+
+.drawer-link {
+  color: rgba(245,245,245,0.8);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0,200,180,0.08);
+  transition: color 0.2s;
+}
+
+.drawer-link:hover {
+  color: #00e5cc;
+}
+
+.contact-link {
+  color: #00b8a0;
+  text-decoration: underline;
+}
+
+.contact-link:hover {
+  color: #00e5cc;
+}
+
 /* ===== STICKY NAV ===== */
 .sticky-nav {
   position: fixed;
@@ -83,7 +178,7 @@ html {
   border: none;
   border-bottom: 2px solid transparent;
   padding: 8px 20px;
-  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  font-size: clamp(0.78rem, 2vw, 1rem);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -103,24 +198,6 @@ html {
   border-bottom-color: var(--teal);
 }
 
-.nav-links {
-  display: flex;
-  gap: 32px;
-  align-items: center;
-}
-
-.nav-links a {
-  color: rgba(245,245,245,0.8);
-  text-decoration: none;
-  font-size: 14px;
-  letter-spacing: 1px;
-  transition: color 0.2s;
-}
-
-.nav-links a:hover {
-  color: #00e5cc;
-}
-
 @media (max-width: 768px) {
   .sticky-nav {
     padding: 10px 16px;
@@ -130,21 +207,6 @@ html {
   .nav-icon {
     cursor: pointer;
     height: 28px;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: row;
-    gap: 16px;
-    align-items: center;
-  }
-
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-links a {
-    font-size: 12px;
   }
 }
 
@@ -624,8 +686,9 @@ html {
 }
 
 .opp-pitch-btn {
-  display: inline-block;
-  margin: 16px auto 0;
+  display: block;
+  width: fit-content;
+  margin: 32px auto 0;
   padding: 14px 36px;
   background: #00b8a0;
   color: #fff;
