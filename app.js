@@ -48,18 +48,42 @@ tabPanels.forEach(p => p.classList.remove('active'));
 document.getElementById('tab-hardware').classList.add('active');
 
 tabBtns.forEach(btn => {
-  btn.addEventListener('click', () => syncNavTabs(btn.dataset.tab));
+  btn.addEventListener('click', () => {
+    syncNavTabs(btn.dataset.tab);
+    if (btn.dataset.tab === 'hardware') {
+      setTimeout(openHardwareAccordions, 50);
+    }
+  });
 });
 
 // ===== ACCORDION =====
+const manuallyClosed = new Set();
+
 document.querySelectorAll('.accordion-header').forEach(header => {
   header.addEventListener('click', () => {
     const body = document.getElementById(header.dataset.target);
     const isOpen = body.classList.contains('open');
     body.classList.toggle('open');
     header.classList.toggle('open');
+    if (isOpen) {
+      manuallyClosed.add(header.dataset.target);
+    } else {
+      manuallyClosed.delete(header.dataset.target);
+    }
   });
 });
+
+function openHardwareAccordions() {
+  document.querySelectorAll('#tab-hardware .accordion-header').forEach(header => {
+    const body = document.getElementById(header.dataset.target);
+    if (!manuallyClosed.has(header.dataset.target)) {
+      body.classList.add('open');
+      header.classList.add('open');
+    }
+  });
+}
+
+openHardwareAccordions();
 
 // ===== DRAWER =====
 const navToggle = document.getElementById('navToggle');
@@ -71,13 +95,11 @@ const drawerContactLink = document.getElementById('drawerContactLink');
 function openDrawer() {
   drawer.classList.add('open');
   drawerOverlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
 }
 
 function closeDrawer() {
   drawer.classList.remove('open');
   drawerOverlay.classList.remove('open');
-  document.body.style.overflow = '';
 }
 
 navToggle.addEventListener('click', openDrawer);
@@ -87,8 +109,12 @@ drawerOverlay.addEventListener('click', closeDrawer);
 drawerContactLink.addEventListener('click', (e) => {
   e.preventDefault();
   closeDrawer();
-  syncNavTabs('contact');
-  document.querySelector('.tabs-section').scrollIntoView({ behavior: 'smooth' });
+  syncNavTabs('opportunity');
+  setTimeout(() => {
+    const target = document.getElementById('the-future');
+    const top = target.getBoundingClientRect().top + window.scrollY - stickyNav.offsetHeight - 16;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, 50);
 });
 
 // ===== STICKY NAV =====
@@ -115,12 +141,6 @@ const tabBar = document.querySelector('.tab-bar');
 const navTabBar = document.getElementById('navTabBar');
 const navTabBtns = document.querySelectorAll('.nav-tab-btn');
 
-function getTabBarScrollTop() {
-  let el = tabBar, top = 0;
-  while (el) { top += el.offsetTop; el = el.offsetParent; }
-  return top;
-}
-
 function syncNavTabs(activeTab) {
   navTabBtns.forEach(b => {
     b.classList.toggle('active', b.dataset.tab === activeTab);
@@ -133,12 +153,20 @@ function syncNavTabs(activeTab) {
 }
 
 navTabBtns.forEach(btn => {
-  btn.addEventListener('click', () => syncNavTabs(btn.dataset.tab));
+  btn.addEventListener('click', () => {
+    syncNavTabs(btn.dataset.tab);
+    if (btn.dataset.tab === 'hardware') {
+      setTimeout(openHardwareAccordions, 50);
+    }
+    const navHeight = stickyNav.offsetHeight;
+    const tabBarRect = tabBar.getBoundingClientRect();
+    const top = tabBarRect.top + window.scrollY + tabBarRect.height - navHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
+  });
 });
 
 window.addEventListener('scroll', () => {
-  const threshold = getTabBarScrollTop() + tabBar.offsetHeight;
-  if (window.scrollY + stickyNav.offsetHeight >= threshold) {
+  if (tabBar.getBoundingClientRect().bottom <= stickyNav.offsetHeight) {
     stickyNav.classList.add('tabs-visible');
   } else {
     stickyNav.classList.remove('tabs-visible');

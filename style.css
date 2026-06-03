@@ -136,17 +136,14 @@ html {
   left: 0;
   width: 100%;
   z-index: 100;
-  background: #06252b;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 12px 40px;
-  border-bottom: 1px solid rgba(0,200,180,0.1);
-  transform: translateY(0);
-  transition: background 0.3s ease, box-shadow 0.3s ease;
   background: transparent;
-  border-bottom: none;
+  border-bottom: 1px solid transparent;
   box-shadow: none;
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .sticky-nav.scrolled {
@@ -162,15 +159,21 @@ html {
 }
 
 .nav-tab-bar {
-  display: none;
+  display: flex;
   align-items: center;
   gap: 0;
   flex: 1;
   justify-content: center;
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
 }
 
 .sticky-nav.tabs-visible .nav-tab-bar {
-  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
 }
 
 .nav-tab-btn {
@@ -397,6 +400,7 @@ html {
 .tabs-section {
   background: #06252b;
   padding: 60px 10% 80px;
+  scroll-margin-top: 70px;
 }
 
 .tab-bar {
@@ -443,6 +447,7 @@ html {
 .tab-panel.active {
   display: block;
   min-height: 400px;
+  padding-top: 20px;
   animation: tabFadeIn 0.3s ease forwards;
 }
 
@@ -492,18 +497,28 @@ html {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
+  padding: 18px 0;
   cursor: pointer;
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  font-weight: 700;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  font-weight: 600;
   color: #00e5cc;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   user-select: none;
+  transition: color 0.2s;
+}
+
+.accordion-header:hover {
+  color: #fff;
 }
 
 .accordion-item.sub .accordion-header {
-  font-size: clamp(1rem, 2vw, 1.4rem);
-  color: rgba(245,245,245,0.9);
+  font-size: clamp(0.82rem, 1.6vw, 1rem);
+  color: rgba(245,245,245,0.75);
+}
+
+.accordion-item.sub .accordion-header:hover {
+  color: rgba(245,245,245,1);
 }
 
 .acc-arrow {
@@ -619,6 +634,186 @@ html {
   }
 }
 
+/* ===== TAGG SECTION ===== */
+.tagg-section {
+  max-width: 620px;
+  padding-top: 10px;
+}
+
+.tagg-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.tagg-title {
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 700;
+  color: #00e5cc;
+  margin-bottom: 20px;
+  line-height: 1.35;
+}
+
+.tagg-text {
+  font-size: clamp(0.88rem, 1.6vw, 0.98rem);
+  line-height: 1.85;
+  color: rgba(245, 245, 245, 0.85);
+  margin-bottom: 28px;
+}
+
+.tagg-list {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tagg-list li {
+  font-size: clamp(0.88rem, 1.5vw, 0.97rem);
+  color: rgba(245, 245, 245, 0.85);
+  line-height: 1.65;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.tagg-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.tagg-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 15px 24px;
+  background: #00b8a0;
+  border: none;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+
+.tagg-btn:hover {
+  background: #009e89;
+  box-shadow: 0 4px 20px rgba(0, 184, 160, 0.4);
+}
+
+.tagg-btn-icon {
+  font-size: 1.15rem;
+}
+
+.tagg-btn-ext {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* ===== TAGGNOW SECTION ===== */
+.taggnow-section {
+  max-width: 620px;
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(0, 200, 180, 0.15);
+}
+
+.taggnow-list {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 32px;
+  display: flex;
+  flex-direction: column;
+}
+
+.taggnow-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0, 200, 180, 0.12);
+}
+
+.taggnow-list li:first-child {
+  border-top: 1px solid rgba(0, 200, 180, 0.12);
+}
+
+.taggnow-num {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 1.5px solid var(--teal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--teal);
+  margin-top: 2px;
+}
+
+.taggnow-list li div strong {
+  display: block;
+  font-size: clamp(0.88rem, 1.6vw, 0.97rem);
+  font-weight: 700;
+  color: var(--teal);
+  margin-bottom: 6px;
+}
+
+.taggnow-list li div p {
+  font-size: clamp(0.84rem, 1.4vw, 0.93rem);
+  color: rgba(245, 245, 245, 0.8);
+  line-height: 1.65;
+}
+
+.taggnow-note {
+  border-left: 3px solid var(--teal);
+  padding: 14px 18px;
+  margin-bottom: 32px;
+  background: rgba(0, 200, 180, 0.05);
+  border-radius: 0 4px 4px 0;
+}
+
+.taggnow-note p {
+  font-size: clamp(0.82rem, 1.4vw, 0.9rem);
+  color: rgba(245, 245, 245, 0.75);
+  line-height: 1.65;
+}
+
+.taggnow-note p strong {
+  color: rgba(245, 245, 245, 0.95);
+}
+
+.taggnow-btn {
+  width: auto;
+  display: inline-flex;
+  padding: 13px 28px;
+}
+
+.tagg-inline-link {
+  color: var(--teal);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+.tagg-inline-link:hover {
+  color: #00e5cc;
+}
+
 /* ===== OPPORTUNITY SECTION ===== */
 .opp-accordion {
   border-bottom: 1px solid rgba(0, 184, 160, 0.3);
@@ -683,6 +878,13 @@ html {
   padding: 4px 12px;
   border: 1px solid rgba(0,184,160,0.3);
   border-radius: 4px;
+}
+
+.opp-divider {
+  width: 60px;
+  height: 2px;
+  background: rgba(0,184,160,0.3);
+  margin: 48px auto;
 }
 
 .opp-pitch-btn {
@@ -911,7 +1113,7 @@ html {
   z-index: 10;
   padding: 24px 48px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -976,6 +1178,7 @@ html {
   .footer {
     padding: 20px 24px;
     flex-direction: column;
+    align-items: center;
     gap: 4px;
   }
 }
