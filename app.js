@@ -156,7 +156,9 @@ function syncNavTabs(activeTab) {
   });
   tabPanels.forEach(p => p.classList.remove('active'));
   const target = document.getElementById('tab-' + activeTab);
-  void target.offsetWidth; // force reflow so tabFadeIn animation restarts
+  target.style.animation = 'none';
+  void target.offsetWidth;
+  target.style.animation = '';
   target.classList.add('active');
 }
 
