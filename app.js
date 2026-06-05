@@ -77,8 +77,14 @@ function openHardwareAccordions() {
   document.querySelectorAll('#tab-hardware .accordion-header').forEach(header => {
     const body = document.getElementById(header.dataset.target);
     if (!manuallyClosed.has(header.dataset.target)) {
+      body.style.transition = 'none';
+      body.style.opacity = '1';
       body.classList.add('open');
       header.classList.add('open');
+      requestAnimationFrame(() => {
+        body.style.transition = '';
+        body.style.opacity = '';
+      });
     }
   });
 }
@@ -158,20 +164,16 @@ navTabBtns.forEach(btn => {
     if (btn.dataset.tab === 'hardware') {
       setTimeout(openHardwareAccordions, 50);
     }
-    const navHeight = stickyNav.offsetHeight;
-    const tabBarRect = tabBar.getBoundingClientRect();
-    const top = tabBarRect.top + window.scrollY + tabBarRect.height - navHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
   });
 });
 
-window.addEventListener('scroll', () => {
-  if (tabBar.getBoundingClientRect().bottom <= stickyNav.offsetHeight) {
+new IntersectionObserver(([entry]) => {
+  if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
     stickyNav.classList.add('tabs-visible');
   } else {
     stickyNav.classList.remove('tabs-visible');
   }
-}, { passive: true });
+}, { threshold: 0 }).observe(tabBar);
 
 // ===== SECTION REVEAL ON SCROLL =====
 const revealSections = document.querySelectorAll('.scroll-shrink');
