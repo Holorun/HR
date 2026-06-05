@@ -51,7 +51,7 @@ tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     syncNavTabs(btn.dataset.tab);
     if (btn.dataset.tab === 'hardware') {
-      openHardwareAccordions();
+      requestAnimationFrame(openHardwareAccordions);
     }
   });
 });
@@ -155,14 +155,16 @@ function syncNavTabs(activeTab) {
     b.classList.toggle('active', b.dataset.tab === activeTab);
   });
   tabPanels.forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-' + activeTab).classList.add('active');
+  const target = document.getElementById('tab-' + activeTab);
+  void target.offsetWidth; // force reflow so tabFadeIn animation restarts
+  target.classList.add('active');
 }
 
 navTabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     syncNavTabs(btn.dataset.tab);
     if (btn.dataset.tab === 'hardware') {
-      openHardwareAccordions();
+      requestAnimationFrame(openHardwareAccordions);
     }
   });
 });
