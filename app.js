@@ -51,7 +51,7 @@ tabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     syncNavTabs(btn.dataset.tab);
     if (btn.dataset.tab === 'hardware') {
-      setTimeout(openHardwareAccordions, 50);
+      openHardwareAccordions();
     }
   });
 });
@@ -162,7 +162,7 @@ navTabBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     syncNavTabs(btn.dataset.tab);
     if (btn.dataset.tab === 'hardware') {
-      setTimeout(openHardwareAccordions, 50);
+      openHardwareAccordions();
     }
   });
 });
