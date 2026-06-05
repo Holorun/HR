@@ -210,6 +210,25 @@ html {
   .nav-icon {
     cursor: pointer;
     height: 28px;
+    flex-shrink: 0;
+  }
+
+  .nav-tab-btn {
+    padding: 6px 10px;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav-icon {
+    height: 24px;
+  }
+
+  .nav-tab-btn {
+    padding: 6px 7px;
+    font-size: 0.6rem;
+    letter-spacing: 0.03em;
   }
 }
 
