@@ -468,12 +468,6 @@ html {
   display: block;
   min-height: 400px;
   padding-top: 24px;
-  animation: tabFadeIn 0.25s ease forwards;
-}
-
-@keyframes tabFadeIn {
-  from { transform: translateY(8px); opacity: 0.6; }
-  to   { transform: translateY(0); opacity: 1; }
 }
 
 .tab-panel--light {

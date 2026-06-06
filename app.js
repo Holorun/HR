@@ -77,14 +77,8 @@ function openHardwareAccordions() {
   document.querySelectorAll('#tab-hardware .accordion-header').forEach(header => {
     const body = document.getElementById(header.dataset.target);
     if (!manuallyClosed.has(header.dataset.target)) {
-      body.style.transition = 'none';
-      body.style.opacity = '1';
       body.classList.add('open');
       header.classList.add('open');
-      requestAnimationFrame(() => {
-        body.style.transition = '';
-        body.style.opacity = '';
-      });
     }
   });
 }
@@ -149,24 +143,11 @@ const navTabBtns = document.querySelectorAll('.nav-tab-btn');
 
 function syncNavTabs(activeTab) {
   const savedScroll = window.scrollY;
-
-  navTabBtns.forEach(b => {
-    b.classList.toggle('active', b.dataset.tab === activeTab);
-  });
-  tabBtns.forEach(b => {
-    b.classList.toggle('active', b.dataset.tab === activeTab);
-  });
+  navTabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === activeTab));
+  tabBtns.forEach(b => b.classList.toggle('active', b.dataset.tab === activeTab));
   tabPanels.forEach(p => p.classList.remove('active'));
-  const target = document.getElementById('tab-' + activeTab);
-  target.style.animation = 'none';
-  void target.offsetWidth;
-  target.style.animation = '';
-  target.classList.add('active');
-
-  // Restore scroll so content height change doesn't jump the page
-  requestAnimationFrame(() => {
-    window.scrollTo(0, savedScroll);
-  });
+  document.getElementById('tab-' + activeTab).classList.add('active');
+  requestAnimationFrame(() => window.scrollTo(0, savedScroll));
 }
 
 navTabBtns.forEach(btn => {
