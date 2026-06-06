@@ -148,6 +148,8 @@ const navTabBar = document.getElementById('navTabBar');
 const navTabBtns = document.querySelectorAll('.nav-tab-btn');
 
 function syncNavTabs(activeTab) {
+  const savedScroll = window.scrollY;
+
   navTabBtns.forEach(b => {
     b.classList.toggle('active', b.dataset.tab === activeTab);
   });
@@ -160,6 +162,11 @@ function syncNavTabs(activeTab) {
   void target.offsetWidth;
   target.style.animation = '';
   target.classList.add('active');
+
+  // Restore scroll so content height change doesn't jump the page
+  requestAnimationFrame(() => {
+    window.scrollTo(0, savedScroll);
+  });
 }
 
 navTabBtns.forEach(btn => {
