@@ -462,19 +462,18 @@ html {
 
 .tab-panel {
   display: none;
-  opacity: 0;
 }
 
 .tab-panel.active {
   display: block;
   min-height: 400px;
   padding-top: 24px;
-  animation: tabFadeIn 0.3s ease forwards;
+  animation: tabFadeIn 0.25s ease forwards;
 }
 
 @keyframes tabFadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from { transform: translateY(8px); opacity: 0.6; }
+  to   { transform: translateY(0); opacity: 1; }
 }
 
 .tab-panel--light {
