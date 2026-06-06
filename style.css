@@ -203,31 +203,35 @@ html {
 
 @media (max-width: 768px) {
   .sticky-nav {
-    padding: 10px 16px;
+    padding: 10px 12px;
     align-items: center;
   }
 
   .nav-icon {
     cursor: pointer;
-    height: 28px;
+    height: 30px;
     flex-shrink: 0;
   }
 
   .nav-tab-btn {
     padding: 6px 10px;
-    font-size: 0.68rem;
+    font-size: 0.78rem;
     letter-spacing: 0.05em;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 430px) {
+  .sticky-nav {
+    padding: 10px 8px;
+  }
+
   .nav-icon {
-    height: 24px;
+    height: 26px;
   }
 
   .nav-tab-btn {
     padding: 6px 7px;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     letter-spacing: 0.03em;
   }
 }
