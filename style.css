@@ -215,14 +215,15 @@ html {
   }
 
   .sticky-nav.tabs-visible .nav-tab-bar {
-    justify-content: space-between;
+    justify-content: center;
+    gap: 6px;
   }
 
   .sticky-nav.tabs-visible .nav-tab-btn {
-    flex: 1;
+    flex: none;
     text-align: center;
     font-size: 0.82rem;
-    padding: 8px 2px;
+    padding: 8px 10px;
     letter-spacing: 0.02em;
   }
 }
