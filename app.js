@@ -167,23 +167,6 @@ new IntersectionObserver(([entry]) => {
   }
 }, { threshold: 0 }).observe(tabBar);
 
-// ===== TECH CAROUSEL DOTS =====
-const techCarousel = document.getElementById('techCarousel');
-const techDots = document.querySelectorAll('.tech-dot');
-
-if (techCarousel && techDots.length) {
-  techCarousel.addEventListener('scroll', () => {
-    const index = Math.round(techCarousel.scrollLeft / techCarousel.offsetWidth);
-    techDots.forEach((d, i) => d.classList.toggle('active', i === index));
-  }, { passive: true });
-
-  techDots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      techCarousel.scrollTo({ left: i * techCarousel.offsetWidth, behavior: 'smooth' });
-    });
-  });
-}
-
 // ===== SECTION REVEAL ON SCROLL =====
 const revealSections = document.querySelectorAll('.scroll-shrink');
 const revealObserver = new IntersectionObserver((entries) => {
